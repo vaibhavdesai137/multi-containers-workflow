@@ -12,7 +12,9 @@ before_install:
 
 # Use the hyphens to terminate tests else "npm run test" will wait for user inputs
 script:
-  - docker run vaibhavdesai137/multi-containers-workflow-webapp npm run test -- --coverage --forceExit
+  # For whatever reason, travis hangs with this after executing tests
+  # - docker run vaibhavdesai137/multi-containers-workflow-webapp npm run test -- --coverage --forceExit
+  - docker run -e CI=true vaibhavdesai137/multi-containers-workflow-webapp npm run test -- --watchAll=false
 
 # We need all images for prod so lets do that here
 # After building, upload to docker hub

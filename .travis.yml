@@ -31,3 +31,20 @@ after_success:
   - docker push vaibhavdesai137/multi-containers-workflow-apiapp
   - docker push vaibhavdesai137/multi-containers-workflow-webapp
   - docker push vaibhavdesai137/multi-containers-workflow-nginx
+
+# Deploying to aws beanstalk
+# Bucket is needed because travis will create a zip file and copy it over to aws
+# Deploy only when on "master" branch
+# Access & Secret keys are stored as env in travis settings
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-1"
+  app: "multi-containers-workflow"
+  env: "MultiContainersWorkflow-env"
+  bucket_name: "elasticbeanstalk-us-west-1-849572186676"
+  bucket_path: "multi-containers-workflow"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: "$AWS_SECRET_KEY"

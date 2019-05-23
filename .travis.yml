@@ -1,0 +1,28 @@
+sudo: required
+services:
+  - docker
+
+# Tag the image so we can refer it later since we cannot copy the image id returned by build command
+before_install:
+  - docker build -t vaibhavdesai137/multi-containers-workflow:latest -f Dockerfile.dev .
+
+# Use the hyphens to terminate tests else "npm run test" will wait for user inputs
+script:
+  - docker run vaibhavdesai137/multi-containers-workflow:latest npm run test -- --coverage
+
+# Deploying to aws beanstalk
+# Bucket is needed because travis will create a zip file and copy it over to aws
+# Deploy only when on "master" branch
+# Access & Secret keys are stored as env in travis settings
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-1"
+  app: "multi-containers-workflow"
+  env: "SingleContainersWorkflow-env"
+  bucket_name: "elasticbeanstalk-us-west-1-849572186676"
+  bucket_path: "multi-containers-workflow"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: "$AWS_SECRET_KEY"

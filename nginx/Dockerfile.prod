@@ -1,0 +1,5 @@
+
+# Same as the dev fle, nothing changes for prod
+
+FROM nginx
+COPY ./default.conf.prod /etc/nginx/conf.d/default.conf

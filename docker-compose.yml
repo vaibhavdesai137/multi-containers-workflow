@@ -1,0 +1,53 @@
+version: '3'
+services:
+  postgres:
+    image: 'postgres:latest'
+  redis:
+    image: 'redis:latest'
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - '4000:80'
+    restart: always
+  worker:
+    build:
+      context: ./worker-app
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./worker-app:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - postgres
+      - redis
+  api:
+    build:
+      context: ./api-app
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./api-app:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PG_USER=postgres
+      - PG_PASSWORD=postgres_password
+      - PG_DATABASE=postgres
+      - PG_HOST=postgres
+      - PG_PORT=5432
+    depends_on:
+      - postgres
+      - redis
+  web:
+    build:
+      context: ./web-app
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./web-app:/app
+    depends_on:
+      - api

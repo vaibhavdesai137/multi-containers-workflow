@@ -1,0 +1,17 @@
+{
+  "name": "api-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "nodemon": "1.18.3",
+    "express": "4.16.3",
+    "pg": "7.4.3",
+    "redis": "2.8.0",
+    "cors": "2.8.4",
+    "body-parser": "*"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon"
+  }
+}

@@ -1,0 +1,9 @@
+
+# Same as the dev fle, nothing changes for prod except the CMD
+
+FROM node:alpine
+WORKDIR "/app"
+COPY ./package.json ./
+RUN npm install
+COPY . .
+CMD ["npm", "run", "start"]

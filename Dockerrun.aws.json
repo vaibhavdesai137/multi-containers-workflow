@@ -33,7 +33,7 @@
                     "containerPort": 80
                 }
             ],
-            "links": ["web", "api"],
+            "links": ["web-app", "api-app"],
             "memory": 128
         }
     ]

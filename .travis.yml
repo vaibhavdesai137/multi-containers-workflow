@@ -6,7 +6,7 @@ services:
 # Creating image only for web project to run tests
 # We should ideall run tests on all sub-projects
 before_install:
-  - docker build -t vaibhavdesai137/multi-containers-workflow-webapp -f Dockerfile.dev ./web-app
+  - docker build -t vaibhavdesai137/multi-containers-workflow-webapp -f ./web-app/Dockerfile.dev ./web-app
   # - docker build other-project-1
   # - docker build other-project-2
 
@@ -19,10 +19,10 @@ script:
 after_success:
   
   # Build images
-  - docker build -t vaibhavdesai137/multi-containers-workflow-workerapp -f Dockerfile.prod ./worker-app
-  - docker build -t vaibhavdesai137/multi-containers-workflow-apiapp -f Dockerfile.prod ./api-app
-  - docker build -t vaibhavdesai137/multi-containers-workflow-webapp -f Dockerfile.prod ./web-app
-  - docker build -t vaibhavdesai137/multi-containers-workflow-nginx -f Dockerfile.prod ./nginx
+  - docker build -t vaibhavdesai137/multi-containers-workflow-workerapp -f ./worker-app/Dockerfile.prod ./worker-app
+  - docker build -t vaibhavdesai137/multi-containers-workflow-apiapp -f ./api-app/Dockerfile.prod ./api-app
+  - docker build -t vaibhavdesai137/multi-containers-workflow-webapp -f ./web-app/Dockerfile.prod ./web-app
+  - docker build -t vaibhavdesai137/multi-containers-workflow-nginx -f ./nginx/Dockerfile.prod ./nginx
 
   # Login to docker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin

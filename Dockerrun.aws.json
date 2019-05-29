@@ -1,0 +1,36 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions": [
+		{
+			"name": "worker",
+			"image": "vaibhavdesai137/multi-containers-workflow-workerapp",
+			"hostname": "worker",
+			"essential": false
+		},
+		{
+			"name": "api-app",
+			"image": "vaibhavdesai137/multi-containers-workflow-apiapp",
+			"hostname": "api",
+			"essential": false
+		},
+		{
+			"name": "web-app",
+			"image": "vaibhavdesai137/multi-containers-workflow-webapp",
+			"hostname": "web",
+			"essential": false
+		},
+		{
+			"name": "nginx",
+			"image": "vaibhavdesai137/multi-containers-workflow-nginx",
+			"hostname": "nginx",
+			"essential": true,
+			"portMappings": [
+				{
+					"hostPort": 80,
+					"containerPort": 80
+				}
+			],
+			"links": ["api-app", "web-app"]
+		}
+	]
+}

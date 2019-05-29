@@ -12,6 +12,7 @@ class App extends Component {
   };
 
   componentDidMount() {
+    fibRequests.push({"fib_idx": -1});
     this.getFibRequests();
     this.getFibResults();
   }

@@ -6,13 +6,12 @@ import './App.css';
 class App extends Component {
 
   state = {
-    fibRequests: [],
+    fibRequests: [{"fib_idx": -1}],
     fibResults: [],
     enteredIndex: ""
   };
 
   componentDidMount() {
-    fibRequests.push({"fib_idx": -1});
     this.getFibRequests();
     this.getFibResults();
   }

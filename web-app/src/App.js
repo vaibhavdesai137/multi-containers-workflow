@@ -7,7 +7,7 @@ class App extends Component {
 
   state = {
     fibRequests: [],
-    fibResults: [],
+    fibResults: {},
     enteredIndex: ""
   };
 
@@ -48,15 +48,17 @@ class App extends Component {
 
     const entries = [];
 
-    for(let key in this.state.fibResults) {
-      entries.push(
-        <div key={key}>
-          For index {key}, redis returned {this.state.fibResults[key]}
-        </div>
-      );
+    if (typeof this.state.fibResults === "object") {
+      for(let key in this.state.fibResults) {
+        entries.push(
+          <div key={key}>
+            For index {key}, redis returned {this.state.fibResults[key]}
+          </div>
+        );
+      }
     }
+    
     return entries;
-
   }
 
   render() {

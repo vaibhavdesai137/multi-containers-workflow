@@ -19,7 +19,7 @@ class App extends Component {
   // Uses postgres
   async getFibRequests() {
     const response = await axios.get('/api/fibRequests');
-    if (response.data) {
+    if (Array.isArray(response.data)) {
       this.setState({ fibRequests: response.data });
     }
   }
@@ -41,20 +41,13 @@ class App extends Component {
   }
 
   renderFibRequests() {
-    if (this.state.fibRequests.length !== 0) {
-      return this.state.fibRequests.map(({fib_idx}) => fib_idx).join(", ");
-    }
+    return this.state.fibRequests.map(({fib_idx}) => fib_idx).join(", ");
   }
 
   renderFibResults() {
 
     const entries = [];
 
-    if (this.state.fibResults.length === 0) {
-      return entries;
-    }
-    
-    
     for(let key in this.state.fibResults) {
       entries.push(
         <div key={key}>

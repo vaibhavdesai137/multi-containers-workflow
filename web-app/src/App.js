@@ -70,7 +70,7 @@ class App extends Component {
 
           <header style={{align: "center"}}>
             <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Fib Calculator</h1>
+            <h1 className="App-title">Fib Calculator v2</h1>
           </header>
 
           <br/><br/><br/>
